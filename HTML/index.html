@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+    <div id="background-container">
+        <img src="Image/satan.jpg" alt="Background Image">
+    </div>
+
+    <header>
+        <h1>Selectionnez votre MALEDICTION</h1>
+        <nav>
+            <h2>Cliquez sur une image afin de voyager vers un nouveau site maudit où la malédiction vous sera expliquée.</h2>
+        </nav>
+    </header>
+
+    <a href="Formulaire.html" style="position: absolute; top: 10px; left: 10px; color: white; font-weight: bold; text-decoration: none;">Formulaire</a>
+
+    <ul class="tabs">
+        <li class="tab tab-active" data-tab="chevre">Chevre</li>
+        <li class="tab" data-tab="el-circo">El Circo</li>
+        <li class="tab" data-tab="shrek">Shrek</li>
+        <li class="tab" data-tab="zeubimid">Zeubimid</li>
+    </ul>
+
+    <div class="content active chevre">
+        <img src="Image/CursedGoat.jpg" alt="Chevre maudite">
+        <a href="goat.html" class="image-link">En savoir plus</a>
+    </div>
+    <div class="content el-circo">
+        <img src="Image/El-circo.jpg" alt="El circo">
+        <a href="Clown.html" class="image-link">En savoir plus</a>
+    </div>
+    <div class="content shrek">
+        <img src="Image/shrek.jpg" alt="Shrek">
+        <a href="shrek.html" class="image-link">En savoir plus</a>
+    </div>
+    <div class="content zeubimid">
+        <img src="Image/aled.jpg" alt="Zeubimid">
+        <a href="Zeubi.html" class="image-link">En savoir plus</a>
+    </div>
+
+    <!-- Votre contenu existant ici -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function () {
+                    tabs.forEach(t => t.classList.remove('tab-active'));
+                    contents.forEach(c => c.classList.remove('active'));
+
+                    this.classList.add('tab-active');
+                    const tabId = this.getAttribute('data-tab');
+
+                    document.querySelector(`.content.${tabId}`).classList.add('active');
+                    history.replaceState({}, '', `#${tabId}`);
+                });
+            });
+
+            // Gestion du chargement de la page avec l'onglet actif précédent
+            const hash = window.location.hash.substr(1);
+            if (hash && document.querySelector(`.tab[data-tab="${hash}"]`)) {
+                document.querySelector(`.tab[data-tab="${hash}"]`).click();
+            }
+        });
+    </script>
+</body>
+</html>
+
